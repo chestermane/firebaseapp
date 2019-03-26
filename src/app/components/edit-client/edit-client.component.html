@@ -1,0 +1,145 @@
+<div class="row">
+  <div class="col-md-6">
+    <a
+      [routerLink]="['/client/' + client.id]"
+      routerLinkActive="router-link-active"
+      class="btn btn-link"
+      ><i class="fa fa-arrow-circle-left"> Back to Client Details</i></a
+    >
+  </div>
+  <div class="col-md-6"></div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    Edit Client
+  </div>
+  <div class="card-body">
+    <!-- Client Form starts here -->
+    <form #clientForm="ngForm" (ngSubmit)="onSubmit(clientForm)">
+      <!-- First Name -->
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          name="firstName"
+          #clientFirstName="ngModel"
+          [(ngModel)]="client.firstName"
+          minlength="2"
+          required
+          [ngClass]="{
+            'is-invalid': clientFirstName.errors && clientFirstName.touched
+          }"
+        />
+
+        <div
+          [hidden]="!clientFirstName.errors?.required"
+          class="invalid-feedback"
+        >
+          First Name Required
+        </div>
+        <div
+          [hidden]="!clientFirstName.errors?.minlength"
+          class="invalid-feedback"
+        >
+          Must be at least 2 characters
+        </div>
+      </div>
+
+      <!-- Last Name -->
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          name="lastName"
+          #clientLastName="ngModel"
+          [(ngModel)]="client.lastName"
+          minlength="2"
+          required
+          [ngClass]="{
+            'is-invalid': clientLastName.errors && clientLastName.touched
+          }"
+        />
+
+        <div
+          [hidden]="!clientLastName.errors?.required"
+          class="invalid-feedback"
+        >
+          Last Name Required
+        </div>
+        <div
+          [hidden]="!clientLastName.errors?.minlength"
+          class="invalid-feedback"
+        >
+          Must be at least 2 characters
+        </div>
+      </div>
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="text"
+          class="form-control"
+          name="email"
+          #clientEmail="ngModel"
+          [(ngModel)]="client.email"
+          pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+          required
+          [ngClass]="{
+            'is-invalid': clientEmail.errors && clientEmail.touched
+          }"
+        />
+
+        <div [hidden]="!clientEmail.errors?.required" class="invalid-feedback">
+          Last Name Required
+        </div>
+        <div [hidden]="!clientEmail.errors?.pattern" class="invalid-feedback">
+          Invalid email format
+        </div>
+      </div>
+      <!-- Phone -->
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input
+          type="text"
+          class="form-control"
+          name="phone"
+          #clientPhone="ngModel"
+          [(ngModel)]="client.phone"
+          minlength="10"
+          required
+          [ngClass]="{
+            'is-invalid': clientPhone.errors && clientPhone.touched
+          }"
+        />
+
+        <div [hidden]="!clientPhone.errors?.required" class="invalid-feedback">
+          Phone Number Required
+        </div>
+        <div [hidden]="!clientPhone.errors?.minlength" class="invalid-feedback">
+          Must be at least 10 characters
+        </div>
+      </div>
+      <!-- Balance -->
+      <div class="form-group">
+        <label for="balance">balance</label>
+        <input
+          type="number"
+          class="form-control"
+          name="balance"
+          #clientBalance="ngModel"
+          [(ngModel)]="client.balance"
+          [disabled]="disableBalanceOnEdit"
+        />
+
+        <div [hidden]="!disabled" class="invalid-feedback">
+          Disabled during add
+        </div>
+      </div>
+      <input type="submit" value="submit" class="btn btn-primary btn-block" />
+    </form>
+    <!-- Client form ends here -->
+  </div>
+</div>
